@@ -10,6 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { MenuModule } from 'primeng/menu';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
 //modulos primeNG
 const modulosPrimeNG: any = [
   AvatarModule,
@@ -19,7 +20,8 @@ const modulosPrimeNG: any = [
   TooltipModule,
   MenuModule,
   CardModule,
-  InputTextModule
+  InputTextModule,
+  ToastModule
 ];
 @NgModule({
   declarations: [],
