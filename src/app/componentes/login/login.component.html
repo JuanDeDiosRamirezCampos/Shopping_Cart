@@ -1,5 +1,5 @@
 <div class="login-container">
-    <form [formGroup]="LoginForm">
+    <form [formGroup]="LoginForm" (ngSubmit)="login()">
       <p-card header="Ingresar al Sistema" [style]="{ width: '360px'}">
         <div class="field">
           <label for="email">Correo Electrónico</label>
@@ -20,7 +20,7 @@
           <div *ngIf="!password.errors?.['required'] && !password.errors?.['minlength'] && password.errors?.['pattern']">La contraseña debe contener al menos una letra minúscula, una letra mayúscula y un carácter especial.</div>
         </small>
   
-        <p-button label="Ingresar" styleClass="w-full" [disabled]="LoginForm.invalid"></p-button>
+        <p-button label="Ingresar" styleClass="w-full" type="submit"></p-button>
         <div class="mt-2">
           No eres un Miembro? <a routerLink="/register">Registrate</a>
         </div>
