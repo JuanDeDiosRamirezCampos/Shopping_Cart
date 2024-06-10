@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "shoponline": {
+    "sgmr-shop": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -41,7 +41,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/shoponline",
+            "outputPath": "dist/sgmr-shop",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -55,9 +55,7 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "src/styles.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -94,10 +92,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "shoponline:build:production"
+              "buildTarget": "sgmr-shop:build:production"
             },
             "development": {
-              "buildTarget": "shoponline:build:development"
+              "buildTarget": "sgmr-shop:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -127,8 +125,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "83e9fc1a-1cc1-4043-a264-af811cb628ad"
   }
 }

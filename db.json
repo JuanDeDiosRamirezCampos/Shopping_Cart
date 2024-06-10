@@ -5,12 +5,9 @@
       "fullName": "Juan de Dios",
       "email": "juanmatacuicos@gmail.com",
       "password": "Guapo-102@"
-    },
-    {
-      "id": "f141",
-      "fullName": "Juan de Dios",
-      "email": "juanmatacuicos@gmail.com",
-      "password": "Guapo-102@"
     }
+  ],
+  "products": [
+    
   ]
 }

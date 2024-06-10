@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolbarModule } from 'primeng/toolbar';
-import { MenubarModule} from 'primeng/menubar';
-
-import { ButtonModule} from 'primeng/button';
-import { AvatarModule} from 'primeng/avatar';
-
+import { MenubarModule } from 'primeng/menubar';
+import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
 import { MenuModule } from 'primeng/menu';
 import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
-import { ToastModule } from 'primeng/toast';
-//modulos primeNG
-const modulosPrimeNG: any = [
+import { InputTextModule} from 'primeng/inputtext';
+import { ToastModule} from 'primeng/toast';
+import { InputTextareaModule} from 'primeng/inputtextarea';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { DialogModule } from 'primeng/dialog';
+import { ImageModule } from 'primeng/image';
+import { FileUploadModule } from 'primeng/fileupload';
+import { TableModule } from 'primeng/table';
+
+const modPrime: any = [
   AvatarModule,
   ButtonModule,
   MenubarModule,
@@ -20,17 +24,25 @@ const modulosPrimeNG: any = [
   TooltipModule,
   MenuModule,
   CardModule,
+  InputTextareaModule,
+  ButtonModule,
+  ToastModule,
   InputTextModule,
-  ToastModule
+ConfirmPopupModule,
+DialogModule,
+ImageModule,
+FileUploadModule,
+TableModule
 ];
+
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    modulosPrimeNG
+    modPrime
   ],
   exports:[
-    modulosPrimeNG
-  ],
+    modPrime
+  ]
 })
 export class PrimengModule { }
