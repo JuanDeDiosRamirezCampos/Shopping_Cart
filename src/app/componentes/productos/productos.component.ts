@@ -52,9 +52,9 @@ export class ProductosComponent implements OnInit {
     });
 
     this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' }
+      { label: 'INSTOCK', value: 'Instock' },
+      { label: 'LOWSTOCK', value: 'Lowstock' },
+      { label: 'OUTOFSTOCK', value: 'Outofstock' }
     ];
   }
 
@@ -64,33 +64,53 @@ export class ProductosComponent implements OnInit {
     this.productDialog = true;
   }
 
-  deleteSelectedProducts() {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected products?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
-        this.selectedProducts = null;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-      }
-    });
-  }
+ 
 
   editProduct(product: Producto) {
     this.product = { ...product };
     this.productDialog = true;
   }
 
-  deleteProduct(product: Producto) {
+  deleteSelectedProducts() {
     this.confirmationService.confirm({
-      message: `Are you sure you want to delete ${product.nombre}?`,
-      header: 'Confirm',
+      message: 'Estas seguro que quieres eliminar estos productos?',
+      header: 'Confirmar',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.products = this.products.filter((val) => val.id !== product.id);
-        this.product = {} as Producto;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+        this.selectedProducts?.forEach(product => {
+          this.productService.deleteProduct(product.id).subscribe({
+            next: () => {
+              this.products = this.products.filter((val) => val.id !== product.id);
+            },
+            error: (err) => {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to Delete Product', life: 3000 });
+              console.error('Error deleting product:', err);
+            }
+          });
+        });
+        this.selectedProducts = null;
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+      }
+    });
+  }
+
+  deleteProduct(product: Producto) {
+    this.confirmationService.confirm({
+      message: `Estas seguro que quieres elimira ${product.nombre}?`,
+      header: 'Confirmar',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.productService.deleteProduct(product.id).subscribe({
+          next: () => {
+            this.products = this.products.filter((val) => val.id !== product.id);
+            this.product = {} as Producto;
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+          },
+          error: (err) => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to Delete Product', life: 3000 });
+            console.error('Error deleting product:', err);
+          }
+        });
       }
     });
   }
@@ -102,23 +122,40 @@ export class ProductosComponent implements OnInit {
 
   saveProduct() {
     this.submitted = true;
-
+  
     if (this.product.nombre?.trim()) {
       if (this.product.id) {
-        this.products[this.findIndexById(this.product.id)] = this.product;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+        this.productService.updateProduct(this.product).subscribe(
+          updatedProduct => {
+            const index = this.products.findIndex(p => p.id === updatedProduct.id);
+            if (index !== -1) {
+              this.products[index] = updatedProduct;
+            }
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+          },
+          error => {
+            console.error('Error al actualizar producto:', error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update product', life: 3000 });
+          }
+        );
       } else {
-        this.product.id = this.createId();
-        this.product.imagen = 'product-placeholder.svg';
-        this.products.push(this.product);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+        this.productService.createProduct(this.product).subscribe(
+          newProduct => {
+            this.products.push(newProduct);
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+          },
+          error => {
+            console.error('Error al crear producto:', error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to create product', life: 3000 });
+          }
+        );
       }
-
-      this.products = [...this.products];
+  
       this.productDialog = false;
       this.product = {} as Producto;
     }
   }
+  
 
   findIndexById(id: number): number {
     return this.products.findIndex((product) => product.id === id);
@@ -141,4 +178,9 @@ export class ProductosComponent implements OnInit {
     }
     return '';
   }
+
+  
 }
+
+
+

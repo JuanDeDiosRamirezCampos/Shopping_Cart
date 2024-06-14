@@ -1,0 +1,19 @@
+/* Asegúrate de que el contenedor del dropdown tenga suficiente espacio */
+.p-field {
+    width: 100%;
+}
+
+/* Asegúrate de que el dropdown tenga un ancho del 100% para ocupar todo el contenedor */
+::ng-deep .p-dropdown {
+    width: 100%;
+}
+
+/* Asegúrate de que el panel desplegable tenga un z-index adecuado */
+::ng-deep .p-dropdown-panel {
+    z-index: 1050 !important;
+}
+
+.card {
+    margin-bottom: 500px; /* Adjust as needed */
+}
+

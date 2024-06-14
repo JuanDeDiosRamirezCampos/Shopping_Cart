@@ -1,5 +1,5 @@
 {
-  "name": "sgmr-shop",
+  "name": "jddrc-shop",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:sgmr-shop": "node dist/sgmr-shop/server/server.mjs"
+    "serve:ssr:jddrc-shop": "node dist/jddrc-shop/server/server.mjs"
   },
   "private": true,
   "dependencies": {
